@@ -1,0 +1,27 @@
+services:
+  web:
+    build: fastapi
+    ports:
+      - 8000:8000
+    volumes:
+      - ./fastapi:/app
+    networks:
+      - gemma3n-network
+  ollama:
+    build: ollama
+    ports:
+      - 11434:11434
+    volumes:
+      - ollama:/root/.ollama
+    networks:
+      - gemma3n-network
+    entrypoint: ['/usr/bin/bash', '/pull-gemma3n.sh']
+    
+
+networks:
+  gemma3n-network:
+    driver: bridge
+
+volumes:
+  ollama:
+    driver: local
