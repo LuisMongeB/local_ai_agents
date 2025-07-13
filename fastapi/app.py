@@ -1,6 +1,7 @@
 import requests
+from llm_client import OllamaClient
 
-from fastapi import FastAPI, Response
+from fastapi import FastAPI, HTTPException
 
 app = FastAPI()
 
@@ -12,9 +13,8 @@ def home():
 
 @app.get("/ask")
 def ask(prompt: str):
-    res = requests.post(
-        "http://ollama:11434/api/generate",
-        json={"prompt": prompt, "stream": False, "model": "gemma3n"},
-    )
+    ollama_client = OllamaClient()
+    res = ollama_client.generate(prompt=prompt)
 
-    return Response(content=res.text, media_type="application/json")
+    # Return the dictionary directly - FastAPI will convert it to JSON
+    return res
