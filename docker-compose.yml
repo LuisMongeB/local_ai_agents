@@ -16,6 +16,17 @@ services:
     networks:
       - gemma3n-network
     entrypoint: ['/usr/bin/bash', '/pull-gemma3n.sh']
+  
+  gradio:
+    build: gradio
+    ports:
+      - 7860:7860
+    volumes:
+      - ./gradio:/app
+    networks:
+      - gemma3n-network
+    depends_on:
+      - web
     
 
 networks:
