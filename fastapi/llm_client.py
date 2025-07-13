@@ -41,7 +41,7 @@ class OllamaClient(LLMClient):
 
         try:
             response = requests.post(
-                self.generate_url, json=payload, timeout=kwargs.get("timeout", 30)
+                self.generate_url, json=payload, timeout=kwargs.get("timeout", 180)
             )
             response.raise_for_status()
             return Response(response.text, media_type="application/json")
