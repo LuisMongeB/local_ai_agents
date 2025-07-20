@@ -1,4 +1,5 @@
 import json
+import logging
 
 import requests
 
@@ -11,9 +12,10 @@ FASTAPI_URL = "http://web:8000"
 def chat_with_llm(message, history):
     """Send message to FastAPI backend and return response"""
     try:
+        logging.info(f"Sending message to backend: {message} with history: {history}")
         # Make request to FastAPI backend
         response = requests.get(
-            f"{FASTAPI_URL}/ask", params={"prompt": message}, timeout=180
+            f"{FASTAPI_URL}/ask", params={"prompt": message}, timeout=600
         )
 
         if response.status_code == 200:
